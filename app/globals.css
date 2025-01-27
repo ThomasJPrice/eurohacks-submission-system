@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+  :root {
+    --background: 41 70% 92%;
+    --foreground: 23 34% 33%;
+    --card: 29 81% 79%;
+    --card-foreground: 23 34% 33%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 25 71% 68%;
+    --primary-foreground: 25 49% 32%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem
+  }
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .container {
+    @apply !max-w-[1200px] !mx-auto !w-full !px-4
+  }
+}
+
+.bannerBg {
+  background: url('/banner.png');
+  background-position: center;
+}
+
+.dialogHeight {
+  max-height: calc(0.9 * 100dvh);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
