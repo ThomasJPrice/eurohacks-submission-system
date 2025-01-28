@@ -30,10 +30,11 @@ function getRawReadmeUrl(repoUrl, branch = "main") {
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import { submitProject } from "@/actions/projects"
+import { submitProject, updateProject } from "@/actions/projects"
+import toast from "react-hot-toast"
 
 const ProjectForm = ({ title, icon, type, project }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -60,38 +61,46 @@ const ProjectForm = ({ title, icon, type, project }) => {
   async function handleFormSubmit() {
     setLoading(true)
 
-    console.log(formData);
-    
-
-    if (type === "edit") {
-      // await updateProject(formData)
-    } else {
-      await submitProject(formData)
+    try {
+      if (type === "edit") {
+        const res = await updateProject(formData)
+        if (res?.ok) {
+          toast.success('Project updated!')
+        }
+      } else {
+        const res = await submitProject(formData)
+        if (res?.ok) {
+          toast.success('Project submitted!')
+        }
+      }
+    } catch (error) {
+      toast.error("An error occured!")
+    } finally {
+      setLoading(false)
+      setOpen(false)
     }
-
-    setIsOpen(false)
   }
 
   return (
-    <Dialog isOpen={isOpen} onOpenChange={() => setIsOpen(false)}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)}>{icon} {title}</Button>
+        <Button>{icon} {title}</Button>
       </DialogTrigger>
 
       <DialogContent className="max-w-2xl dialogHeight !border-none overflow-hidden">
-        <div className="h-[300px] absolute w-full">
+        <div className="aspect-[16/9] absolute w-full">
           <Image src={formData.screenshot_url ? formData.screenshot_url : '/banner.png'} alt={`Image for ${formData.title}`} fill className="object-cover " />
 
-          <div className="w-full h-[70px] absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-background " />
+          <div className="w-full h-[50px] absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-background " />
         </div>
 
-        <DialogHeader className='flex flex-col mt-[300px]'>
+        <DialogHeader className='flex flex-col mt-[calc(100%/16*9+16px)]'>
           <DialogTitle className='font-medium text-xl tracking-normal'>{type === 'edit' ? `Edit "${project.title}"` : title}</DialogTitle>
           <p className="text-sm">All fields are required for a good project submission.</p>
         </DialogHeader>
 
 
-        <form className="space-y-4" action={handleFormSubmit}>
+        <div className="space-y-4">
           {/* TITLE */}
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
@@ -159,11 +168,11 @@ const ProjectForm = ({ title, icon, type, project }) => {
           </div>
 
           <DialogFooter>
-            <Button type="submit" className='w-full' disabled={loading}>
-              {loading ? 'Loading...' : `${type === 'edit' ? 'Update' : 'Create'} Project`}
+            <Button onClick={() => handleFormSubmit()} className='w-full' disabled={loading}>
+              {loading ? 'Loading...' : `${type === 'edit' ? 'Update' : 'Submit'} Project`}
             </Button>
           </DialogFooter>
-        </form>
+        </div>
 
       </DialogContent>
     </Dialog>

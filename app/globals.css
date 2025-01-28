@@ -52,3 +52,43 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+.markdown ul {
+  @apply list-disc text-sm pl-5;
+}
+
+.markdown ol {
+  @apply list-decimal pl-5;
+}
+
+.markdown h1 {
+  @apply text-xl;
+}
+
+.markdown h2 {
+  @apply text-lg;
+}
+
+.markdown h3 {
+  @apply text-base;
+}
+
+.markdown h4 {
+  @apply text-sm;
+}
+
+.markdown h5 {
+  @apply text-xs;
+}
+
+.markdown h6 {
+  @apply text-xs;
+}
+
+.markdown p {
+  @apply text-sm;
+}
+
+.markdown a {
+  @apply text-primary underline;
+}
