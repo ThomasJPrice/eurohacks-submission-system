@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import EditTeamName from './EditTeamName'
+import { Button } from '../ui/button'
 
 export async function getFlag(teamCode) {
   return 'https://flagicons.lipis.dev/flags/4x3/' + teamCode.substring(0, 2).toLowerCase() + '.svg'
@@ -22,7 +23,8 @@ const SignInStatus = async () => {
   if (!team) return (
     <div className='flex flex-col items-center'>
       <p>You are currently not signed in.</p>
-      <Link className='text-center text-sm' href={'/sign-in'}>Sign In</Link>
+      <Link className='text-center text-sm mt-2' href={'/sign-in'}>
+      <Button>Sign In</Button></Link>
     </div>
   )
 
@@ -34,7 +36,7 @@ const SignInStatus = async () => {
       <p className='flex gap-1 items-center'>You are signed in as {team.team_name} <Image src={flag} alt={`Flag for ${team.country}`} width={24} height={18} /> <EditTeamName team={team} /></p>
 
       <form action={handleSignOut}>
-        <button type='submit' className='text-center text-sm' href={'/sign-in'}>Sign Out</button>
+        <Button type='submit' className='text-center text-sm mt-2' href={'/sign-in'}>Sign Out</Button>
       </form>
     </div>
   )
