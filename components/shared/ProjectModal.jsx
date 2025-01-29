@@ -6,7 +6,7 @@ import Link from "next/link"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import EmbeddedReadme from "./EmbeddedReadme"
 
-const ProjectModal = ({ open, setOpen, project }) => {
+const ProjectModal = ({ open, setOpen, project, team }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[600px] dialogHeight !border-none overflow-hidden">
@@ -19,7 +19,7 @@ const ProjectModal = ({ open, setOpen, project }) => {
 
         <DialogHeader className='flex flex-col mt-[calc(100%/16*9+16px)]'>
           <DialogTitle className='font-medium text-xl tracking-normal'>{project.title}</DialogTitle>
-          <p className="text-sm pb-2">United Kingdom - Test Team</p>
+          <p className="text-sm pb-2">{team.country} - {team.team_name}</p>
 
           <div className="flex gap-2">
             <Link href={project.demo_link} className="w-full" target="_blank">

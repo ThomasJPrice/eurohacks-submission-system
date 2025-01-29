@@ -23,8 +23,8 @@ function getRawReadmeUrl(repoUrl, branch = "main") {
 
     return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/README.md`;
   } catch (error) {
-    console.error(error.message);
-    return null;
+    // console.error(error.message);
+    return "";
   }
 }
 

@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 import { MapPin } from "lucide-react"
 import ProjectModal from "./ProjectModal"
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, team }) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -35,14 +35,14 @@ const ProjectCard = ({ project }) => {
         <CardFooter className="px-4 py-3 bg-primary flex items-center justify-between">
           <div className="flex items-center text-xs">
             <MapPin className="w-4 h-4 mr-1" />
-            United Kingdom
+            {team.country}
           </div>
-          <div className="text-sm font-medium">Test Team</div>
+          <div className="text-sm font-medium">{team.team_name}</div>
         </CardFooter>
       </Card>
 
 
-      <ProjectModal open={open} setOpen={setOpen} project={project} />
+      <ProjectModal team={team} open={open} setOpen={setOpen} project={project} />
     </>
   )
 }
