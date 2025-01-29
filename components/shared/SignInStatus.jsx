@@ -3,6 +3,7 @@ import { createClient } from '@/utils/supabase/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import EditTeamName from './EditTeamName'
 
 export async function getFlag(teamCode) {
   return 'https://flagicons.lipis.dev/flags/4x3/' + teamCode.substring(0, 2).toLowerCase() + '.svg'
@@ -30,7 +31,7 @@ const SignInStatus = async () => {
 
   return (
     <div className='flex flex-col items-center'>
-      <p className='flex gap-1 items-center'>You are signed in as {team.team_name} <Image src={flag} alt={`Flag for ${team.country}`} width={24} height={18} /></p>
+      <p className='flex gap-1 items-center'>You are signed in as {team.team_name} <Image src={flag} alt={`Flag for ${team.country}`} width={24} height={18} /> <EditTeamName team={team} /></p>
 
       <form action={handleSignOut}>
         <button type='submit' className='text-center text-sm' href={'/sign-in'}>Sign Out</button>

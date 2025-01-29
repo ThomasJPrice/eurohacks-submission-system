@@ -32,6 +32,7 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { submitProject, updateProject } from "@/actions/projects"
 import toast from "react-hot-toast"
+import confetti from "canvas-confetti"
 
 const ProjectForm = ({ title, icon, type, project }) => {
   const [open, setOpen] = useState(false)
@@ -66,14 +67,26 @@ const ProjectForm = ({ title, icon, type, project }) => {
         const res = await updateProject(formData)
         if (res?.ok) {
           toast.success('Project updated!')
+          confetti({
+            particleCount: 100,
+            spread: 100,
+            origin: { y: 0.4 },
+          })
         }
       } else {
         const res = await submitProject(formData)
         if (res?.ok) {
           toast.success('Project submitted!')
+          confetti({
+            particleCount: 100,
+            spread: 100,
+            origin: { y: 0.4 },
+          })
         }
       }
     } catch (error) {
+      console.log(error);
+      
       toast.error("An error occured!")
     } finally {
       setLoading(false)

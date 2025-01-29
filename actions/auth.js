@@ -68,3 +68,19 @@ export async function checkAuth() {
 
   return team
 }
+
+
+
+export async function changeTeamName(teamId, newName) {
+  const { error } = await supabase.from('teams').update({
+    team_name: newName
+  }).eq('id', teamId)
+  
+
+  if (error) {
+    console.log(error);
+    return { ok: false }
+  }
+
+  return { ok: true }
+}
